@@ -14,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.system.api.model.AccountManagers;
+import com.system.api.model.BusinessContact;
 import com.system.api.model.ClientCode;
+import com.system.api.model.CompanyDetails;
 import com.system.api.model.Customer;
+import com.system.api.model.FinanceDetails;
 import com.system.api.model.ProjectManagers;
+import com.system.api.model.SalesAccount;
 import com.system.api.model.SupplyManagers;
+import com.system.api.model.YourDetails;
 import com.system.api.payload.ServerResponse;
 import com.system.api.service.SystemServiceImpl;
 
@@ -140,7 +145,153 @@ public class CustomerController {
 	}
 
 	
+//	BusinessContact
+	@PostMapping(value = "/AddBusinessContact/{customer_id}")
+	public ServerResponse AddBusinessContact(@RequestBody BusinessContact business_contact,@PathVariable("customer_id") Integer customer_id) {
+
+		BusinessContact dbFile = systemservice.AddBusinessContact(business_contact, customer_id);
+		return new ServerResponse(dbFile.getId(), business_contact.getEmail());
+	}
+
+	@GetMapping(value = "/getBusinessContactbyid/{customer_id}") // pathvariable
+	public List<BusinessContact> getBusinessContactbyid(@PathVariable("customer_id") Integer customer_id) {
+		// System.out.println(prodName);
+		return systemservice.getBusinessContactbyid(customer_id);
+	}
+
+	@PostMapping(value = "/UpdateBusinessContactbyUid")
+	public void UpdateBusinessContactbyUid(@RequestParam("id") Integer id,
+			@RequestParam("email")String email, 
+			@RequestParam("name")String name, 
+			@RequestParam("phone")String phone
+			) {
+		systemservice.UpdateBusinessContactbyUid(id,email,name,phone);
+	}
+
+	@DeleteMapping("/deleteBusinessContact/{id}")
+	public void deleteBusinessContact(@PathVariable("id") int id) {
+		systemservice.deleteBusinessContact(id);
+	}
+
+//	CompanyDetails
 	
+	@PostMapping(value = "/AddCompanyDetails/{customer_id}")
+	public ServerResponse AddCompanyDetails(@RequestBody CompanyDetails company_details,@PathVariable("customer_id") Integer customer_id) {
+
+		CompanyDetails dbFile = systemservice.AddCompanyDetails(company_details, customer_id);
+		return new ServerResponse(dbFile.getId(), company_details.getCompany_name());
+	}
+
+	@GetMapping(value = "/getCompanyDetailsbyid/{customer_id}") // pathvariable
+	public List<CompanyDetails> getCompanyDetailsbyid(@PathVariable("customer_id") Integer customer_id) {
+		// System.out.println(prodName);
+		return systemservice.getCompanyDetailsbyid(customer_id);
+	}
+
+	@PostMapping(value = "/UpdateCompanyDetailsbyUid")
+	public void UpdateCompanyDetailsbyUid(@RequestParam("id") Integer id,
+			@RequestParam("company_employee_size")String company_employee_size, 
+			@RequestParam("company_name")String company_name, 
+			@RequestParam("company_registred_number")String company_registred_number
+			) {
+		systemservice.UpdateBusinessContactbyUid(id,company_employee_size,company_name,company_registred_number);
+	}
+
+	@DeleteMapping("/deleteCompanyDetails/{id}")
+	public void deleteCompanyDetails(@PathVariable("id") int id) {
+		systemservice.deleteCompanyDetails(id);
+	}
+	
+//	FinanceDetails
+	
+	@PostMapping(value = "/AddFinanceDetails/{customer_id}")
+	public ServerResponse AddFinanceDetails(@RequestBody FinanceDetails finance_details,@PathVariable("customer_id") Integer customer_id) {
+
+		FinanceDetails dbFile = systemservice.AddFinanceDetails(finance_details, customer_id);
+		return new ServerResponse(dbFile.getId(), finance_details.getBank_name());
+	}
+
+	@GetMapping(value = "/getFinanceDetailsbyid/{customer_id}") // pathvariable
+	public List<FinanceDetails> getFinanceDetailsbyid(@PathVariable("customer_id") Integer customer_id) {
+		// System.out.println(prodName);
+		return systemservice.getFinanceDetailsbyid(customer_id);
+	}
+
+	@PostMapping(value = "/UpdateFinanceDetailsbyUid")
+	public void UpdateFinanceDetailsbyUid(@RequestParam("id") Integer id,
+			@RequestParam("account_number")String account_number, 
+			@RequestParam("bank_name")String bank_name, 
+			@RequestParam("contact_person_name")String contact_person_name,
+			@RequestParam("ifsc")String ifsc
+			) {
+		systemservice.UpdateFinanceDetailsbyUid(id,account_number,bank_name,contact_person_name,ifsc);
+	}
+
+	@DeleteMapping("/deleteFinanceDetails/{id}")
+	public void deleteFinanceDetails(@PathVariable("id") int id) {
+		systemservice.deleteFinanceDetails(id);
+	}
+	
+	
+//	SalesAccount
+	
+	@PostMapping(value = "/AddSalesAccount/{customer_id}")
+	public ServerResponse AddSalesAccount(@RequestBody SalesAccount sales_account,@PathVariable("customer_id") Integer customer_id) {
+
+		SalesAccount dbFile = systemservice.AddSalesAccount(sales_account, customer_id);
+		return new ServerResponse(dbFile.getId(), sales_account.getEmail());
+	}
+
+	@GetMapping(value = "/getSalesAccountbyid/{customer_id}") // pathvariable
+	public List<SalesAccount> getSalesAccountbyid(@PathVariable("customer_id") Integer customer_id) {
+		// System.out.println(prodName);
+		return systemservice.getSalesAccountbyid(customer_id);
+	}
+
+	@PostMapping(value = "/UpdateSalesAccountbyUid")
+	public void UpdateSalesAccountbyUid(@RequestParam("id") Integer id,
+			@RequestParam("email")String email, 
+			@RequestParam("name")String name, 
+			@RequestParam("phone")String phone
+			) {
+		systemservice.UpdateSalesAccountbyUid(id,email,name,phone);
+	}
+
+	@DeleteMapping("/deleteSalesAccount/{id}")
+	public void deleteSalesAccount(@PathVariable("id") int id) {
+		systemservice.deleteSalesAccount(id);
+	}
+	
+	
+//	YourDetails
+	
+	@PostMapping(value = "/AddYourDetails/{customer_id}")
+	public ServerResponse AddYourDetails(@RequestBody YourDetails your_details,@PathVariable("customer_id") Integer customer_id) {
+
+		YourDetails dbFile = systemservice.AddYourDetails(your_details, customer_id);
+		return new ServerResponse(dbFile.getId(), your_details.getOfficial_email_address());
+	}
+
+	@GetMapping(value = "/getYourDetailsbyid/{customer_id}") // pathvariable
+	public List<YourDetails> getYourDetailsbyid(@PathVariable("customer_id") Integer customer_id) {
+		// System.out.println(prodName);
+		return systemservice.getYourDetailsbyid(customer_id);
+	}
+
+	@PostMapping(value = "/UpdateYourDetailsbyUid")
+	public void UpdateYourDetailsbyUid(@RequestParam("id") Integer id,
+			@RequestParam("job_function")String job_function, 
+			@RequestParam("official_email_address")String official_email_address,
+			@RequestParam("your_job_title")String your_job_title
+			) {
+		systemservice.UpdateYourDetailsbyUid(id,job_function,official_email_address,your_job_title);
+	}
+
+	@DeleteMapping("/deleteYourDetails/{id}")
+	public void deleteYourDetails(@PathVariable("id") int id) {
+		systemservice.deleteYourDetails(id);
+	}
+
 
 
 }
